@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+< lang="en">
+<head><link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <meta name="description" content="Business marketing, video sharing and multi-platform livestreaming platform.">
+
+  <title>Giiran Business Hub</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7fb;
+      color: #111827;
+      line-height: 1.5;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .app {
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #111827;
+      color: white;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.15);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg,#7c3aed,#2563eb);
+      font-size: 20px;
+    }
+
+    .menu-btn {
+      background: transparent;
+      color: white;
+      border: 0;
+      font-size: 25px;
+      padding: 5px;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      position: fixed;
+      left: -280px;
+      top: 0;
+      bottom: 0;
+      width: 270px;
+      background: #111827;
+      color: white;
+      z-index: 2000;
+      padding: 75px 18px 20px;
+      transition: .3s;
+      overflow-y: auto;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    .sidebar button {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: #d1d5db;
+      text-align: left;
+      padding: 13px 14px;
+      margin-bottom: 5px;
+      border-radius: 10px;
+    }
+
+    .sidebar button:hover,
+    .sidebar button.active {
+      background: #374151;
+      color: white;
+    }
+
+    .close-menu {
+      position: absolute;
+      right: 15px;
+      top: 18px;
+      font-size: 25px;
+      background: transparent;
+      border: 0;
+      color: white;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg,#111827,#312e81);
+      color: white;
+      padding: 35px 25px;
+      border-radius: 22px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px,6vw,48px);
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: #dbeafe;
+      max-width: 700px;
+      margin-bottom: 20px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* BUTTONS */
+    .btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 17px;
+      font-weight: bold;
+      transition: .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .purple {
+      background: #7c3aed;
+      color: white;
+    }
+
+    .green {
+      background: #16a34a;
+      color: white;
+    }
+
+    .red {
+      background: #dc2626;
+      color: white;
+    }
+
+    .dark {
+      background: #111827;
+      color: white;
+    }
+
+    .light {
+      background: white;
+      color: #111827;
+      border: 1px solid #d1d5db;
+    }
+
+    /* CARDS */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap: 15px;
+      margin: 18px 0;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.07);
+    }
+
+    .card h3 {
+      margin-bottom: 7px;
+    }
+
+    .card p {
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    /* STATS */
+    .stat {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 5px 0;
+    }
+
+    /* FORM */
+    .form-card {
+      max-width: 750px;
+      margin: auto;
+      background: white;
+      padding: 22px;
+      border-radius: 18px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.07);
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 9px;
+      outline: none;
+      background: white;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #2563eb;
+    }
+
+    /* PLATFORM GRID */
+    .platform {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px;
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .platform-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+    }
+
+    .platform-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      background: #eef2ff;
+    }
+
+    /* VIDEO */
+    .video-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .video-placeholder {
+      height: 180px;
+      background: linear-gradient(135deg,#111827,#4c1d95);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 45px;
+    }
+
+    .video-info {
+      padding: 15px;
+    }
+
+    /* LIVE */
+    .live-box {
+      background: #111827;
+      color: white;
+      border-radius: 18px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .live-dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background: red;
+      border-radius: 50%;
+      margin-right: 7px;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: .3; }
+    }
+
+    /* WEBSITE PREVIEW */
+    .website-preview {
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .preview-head {
+      padding: 25px;
+      background: linear-gradient(135deg,#2563eb,#7c3aed);
+      color: white;
+      text-align: center;
+    }
+
+    .preview-body {
+      padding: 25px;
+    }
+
+    /* TABLE */
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    /* NOTIFICATION */
+    #notification {
+      position: fixed;
+      right: 15px;
+      bottom: 15px;
+      max-width: 330px;
+      background: #111827;
+      color: white;
+      padding: 14px 18px;
+      border-radius: 12px;
+      display: none;
+      z-index: 5000;
+      box-shadow: 0 5px 20px rgba(0,0,0,.25);
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 35px;
+      background: #111827;
+      color: #d1d5db;
+      text-align: center;
+      padding: 25px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 600px) {
+      main {
+        padding: 12px;
+      }
+
+      .hero {
+        padding: 25px 18px;
+      }
+
+      .card {
+        padding: 16px;
+      }
+
+      header {
+        padding: 10px 13px;
+      }
+    }
+  </style>
+</head>
+<link rel="stylesheet" href="style.css">
+<div class="card">
+  <h2>Create Your Business Website</h2>
+
+  <input id="businessName" type="text" placeholder="Business name">
+  <input id="businessDescription" type="text" placeholder="What does your business do?">
+  <input id="businessPhone" type="text" placeholder="Phone number">
+  <input id="businessLocation" type="text" placeholder="Business location">
+
+  <button onclick="createBusinessPage()">Create Website</button>
+
+  <div id="businessResult"></div>
+</div>
+
+<script src="script.js"></script>
+
+<body>
+<html>
+<body>
+  <div class="card">
+  <h2>Create Your Business Website</h2>
+
+  <input id="businessName" type="text" placeholder="Business name">
+
+  <input id="businessDescription" type="text" placeholder="What does your business do?">
+
+  <input id="businessPhone" type="text" placeholder="Phone number">
+
+  <input id="businessLocation" type="text" placeholder="Business location">
+
+  <button onclick="createBusinessPage()">Create Website</button>
+
+  <div id="businessResult"></div>
+</div>
+
+<script src="script.js"></script>
+  <div class="card">
+  <h2>Upload & Share Video</h2>
+
+  <input id="videoInput" type="file" accept="video/*">
+
+  <video id="videoPreview" controls style="display:none;"></video>
+
+  <br>
+
+  <button onclick="shareVideo()">Share Video</button>
+  </div>
+  <div class="card">
+  <h2>Multiple Livestream Platforms</h2>
+
+  <p>Select the platforms you want to connect:</p>
+
+  <label>
+    <input type="checkbox" value="YouTube"> YouTube
+  </label><br>
+
+  <label>
+    <input type="checkbox" value="Twitch"> Twitch
+  </label><br>
+
+  <label>
+    <input type="checkbox" value="TikTok"> TikTok
+  </label><br>
+
+  <label>
+    <input type="checkbox" value="Facebook"> Facebook
+  </label><br>
+
+  <label>
+    <input type="checkbox" value="Kick"> Kick
+  </label><br><br>
+
+  <button onclick="connectPlatforms()">Connect Platforms</button>
+
+  <div id="platformResult"></div>
+  </div>
+  <div class="card">
+  <h2>📢 Marketing & Promotion</h2>
+
+  <input id="marketingTitle"
+         type="text"
+         placeholder="Promotion title">
+
+  <input id="marketingLink"
+         type="text"
+         placeholder="Video or website link">
+
+  <button onclick="createPromotion()">
+    Create Promotion
+  </button>
+
+  <div id="promotionResult"></div>
+  </div>
+  <!-- HEADER -->
+  <header>
+    <div class="brand">
+      <button class="menu-btn" onclick="openMenu()">☰</button>
+      <div class="brand-logo">G</div>
+      <span>Giiran Business Hub</span>
+    </div>
+
+    <button class="btn primary" onclick="showPage('dashboard')">
+      Dashboard
+    </button>
+  </header>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+
+    <button class="close-menu" onclick="closeMenu()">×</button>
+
+    <button onclick="showPage('dashboard');closeMenu()">
+      🏠 Dashboard
+    </button>
+
+    <button onclick="showPage('website');closeMenu()">
+      🌐 Website Builder
+    </button>
+
+    <button onclick="showPage('videos');closeMenu()">
+      🎬 Video Sharing
+    </button>
+
+    <button onclick="showPage('marketing');closeMenu()">
+      📢 Marketing
+    </button>
+
+    <button onclick="showPage('live');closeMenu()">
+      🔴 Multi-Live Streaming
+    </button>
+
+    <button onclick="showPage('business');closeMenu()">
+      🏪 Business Page
+    </button>
+
+    <button onclick="showPage('analytics');closeMenu()">
+      📊 Analytics
+    </button>
+
+    <button onclick="showPage('settings');closeMenu()">
+      ⚙️ Settings
+    </button>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="page active">
+
+      <div class="hero">
+        <h1>Grow Your Business Online</h1>
+
+        <p>
+          Build your business website, share videos, market your products
+          and manage multiple livestream platforms from one place.
+        </p>
+
+        <div class="hero-actions">
+          <button class="btn primary" onclick="showPage('website')">
+            Create Website
+          </button>
+
+          <button class="btn purple" onclick="showPage('videos')">
+            Share Video
+          </button>
+
+          <button class="btn red" onclick="showPage('live')">
+            Go Live
+          </button>
+        </div>
+      </div>
+
+      <h2>Business Dashboard</h2>
+
+      <div class="grid">
+
+        <div class="card">
+          <div class="icon">🌐</div>
+          <h3>Websites</h3>
+          <div class="stat" id="websiteCount">0</div>
+          <p>Websites created</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🎬</div>
+          <h3>Videos</h3>
+          <div class="stat" id="videoCount">0</div>
+          <p>Videos uploaded</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">📢</div>
+          <h3>Campaigns</h3>
+          <div class="stat" id="campaignCount">0</div>
+          <p>Marketing campaigns</p>
+        </div>
+
+        <div class="card">
+          <div class="icon">🔴</div>
+          <h3>Live Platforms</h3>
+          <div class="stat">10+</div>
+          <p>Platforms supported</p>
+        </div>
+
+      </div>
+
+      <h2>Quick Actions</h2>
+
+      <div class="grid">
+
+        <div class="card">
+          <h3>🌐 Build a Website</h3>
+          <p>Create a business page with your name, products, services and contact details.</p>
+          <br>
+          <button class="btn primary" onclick="showPage('website')">
+            Start Building
+          </button>
+        </div>
+
+        <div class="card">
+          <h3>🎬 Share Videos</h3>
+          <p>Prepare your video for sharing across multiple social platforms.</p>
+          <br>
+          <button class="btn purple" onclick="showPage('videos')">
+            Upload Video
+          </button>
+        </div>
+
+        <div class="card">
+          <h3>📢 Promote Business</h3>
+          <p>Create marketing campaigns for your products and services.</p>
+          <br>
+          <button class="btn green" onclick="showPage('marketing')">
+            Create Campaign
+          </button>
+        </div>
+
+        <div class="card">
+          <h3>🔴 Multi-Stream</h3>
+          <p>Prepare a livestream for multiple streaming destinations.</p>
+          <br>
+          <button class="btn red" onclick="showPage('live')">
+            Setup Live
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- WEBSITE BUILDER -->
+    <section id="website" class="page">
+
+      <h1>🌐 Website Builder</h1>
+
+      <p>
+        Create your business website information and preview it instantly.
+      </p>
+
+      <br>
+
+      <div class="form-card">
+
+        <div class="form-group">
+          <label>Business Name</label>
+          <input id="businessName" placeholder="Example: Giiran Business">
+        </div>
+
+        <div class="form-group">
+          <label>Website Headline</label>
+          <input id="websiteHeadline" placeholder="Your business starts here">
+        </div>
+
+        <div class="form-group">
+          <label>Business Description</label>
+          <textarea id="businessDescription"
+            placeholder="Tell customers about your business"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input id="businessPhone" placeholder="+234...">
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input id="businessEmail" type="email"
+            placeholder="business@example.com">
+        </div>
+
+        <div class="form-group">
+          <label>Website Address</label>
+          <input id="websiteAddress"
+            placeholder="yourbusiness.com">
+        </div>
+
+        <button class="btn primary" onclick="generateWebsite()">
+          Generate Website
+        </button>
+
+        <button class="btn green" onclick="publishWebsite()">
+          Publish Website
+        </button>
+
+      </div>
+
+      <br>
+
+      <div class="website-preview">
+
+        <div class="preview-head">
+          <h1 id="previewBusinessName">
+            Your Business
+          </h1>
+
+          <p id="previewHeadline">
+            Your business headline
+          </p>
+        </div>
+
+        <div class="preview-body">
+
+          <h2>About Us</h2>
+
+          <p id="previewDescription">
+            Your business description will appear here.
+          </p>
+
+          <br>
+
+          <h3>Contact</h3>
+
+          <p id="previewPhone">
+            Phone: -
+          </p>
+
+          <p id="previewEmail">
+            Email: -
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- VIDEOS -->
+    <section id="videos" class="page">
+
+      <h1>🎬 Video Sharing</h1>
+
+      <p>
+        Add your video information and prepare it for social sharing.
+      </p>
+
+      <br>
+
+      <div class="form-card">
+
+        <div class="form-group">
+          <label>Video Title</label>
+          <input id="videoTitle" placeholder="Enter video title">
+        </div>
+
+        <div class="form-group">
+          <label>Video Description</label>
+          <textarea id="videoDescription"
+            placeholder="Describe your video"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Select Video</label>
+          <input id="videoFile" type="file" accept="video/*">
+        </div>
+
+        <button class="btn purple" onclick="addVideo()">
+          Add Video
+        </button>
+
+      </div>
+
+      <br>
+
+      <h2>Sharing Platforms</h2>
+
+      <div class="grid">
+
+        <div class="platform">
+          <div class="platform-name">
+            <div class="platform-icon">▶️</div>
+            YouTube
+          </div>
+          <button class="btn light" onclick="connectPlatform('YouTube')">
+            Connect
+          </button>
+        </div>
+
+        <div class="platform">
+          <div class="platform-name">
+            <div class="platform-icon">🎵</div>
+            TikTok
+          </div>
+          <button class="btn light" onclick="connectPlatform('TikTok')">
+            Connect
+          </button>
+        </div>
+
+        <div class="platform">
+          <div class="platform-name">
+            <div class="platform-icon">📘</div>
+            Facebook
+          </div>
+          <button class="btn light" onclick="connectPlatform('Facebook')">
+            Connect
+          </button>
+        </div>
+
+        <div class="platform">
+          <div class="platform-name">
+            <div class="platform-icon">📸</div>
+            Instagram
+          </div>
+          <button class="btn light" onclick="connectPlatform('Instagram')">
+            Connect
+          </button>
+        </div>
+
+        <div class="platform">
+          <div class="platform-name">
+            <div class="platform-icon">𝕏</div>
+            X
+          </div>
+          <button class="btn light" onclick="connectPlatform('X')">
+            Connect
+          </button>
+        </div>
+
+        <div class="platform">
+          <div class="platform-name">
+            <div class="platform-icon">🟣</div>
+            Twitch
+          </div>
+          <button class="btn light" onclick="connectPlatform('Twitch')">
+            Connect
+          </button>
+        </div>
+
+      </div>
+
+      <br>
+
+      <div id="videoList" class="grid"></div>
+
+    </section>
+
+
+    <!-- MARKETING -->
+    <section id="marketing" class="page">
+
+      <h1>📢 Marketing Center</h1>
+
+      <p>
+        Create promotional campaigns for your business.
+      </p>
+
+      <br>
+
+      <div class="form-card">
+
+        <div class="form-group">
+          <label>Campaign Name</label>
+          <input id="campaignName"
+            placeholder="Example: December Promotion">
+        </div>
+
+        <div class="form-group">
+          <label>Product or Service</label>
+          <input id="campaignProduct"
+            placeholder="What are you promoting?">
+        </div>
+
+        <div class="form-group">
+          <label>Advertisement Text</label>
+          <textarea id="campaignText"
+            placeholder="Write your advertisement"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Target Platform</label>
+
+          <select id="campaignPlatform">
+            <option>Facebook</option>
+            <option>Instagram</option>
+            <option>TikTok</option>
+            <option>YouTube</option>
+            <option>X</option>
+            <option>WhatsApp</option>
+          </select>
+        </div>
+
+        <button class="btn green" onclick="createCampaign()">
+          Create Campaign
+        </button>
+
+      </div>
+
+      <br>
+
+      <div class="card">
+
+        <h2>Marketing Tools</h2>
+
+        <br>
+
+        <div class="grid">
+
+          <div>
+            <h3>📱 Social Promotion</h3>
+            <p>Prepare promotional content for social networks.</p>
+          </div>
+
+          <div>
+            <h3>🔗 Website Promotion</h3>
+            <p>Share your business website with customers.</p>
+          </div>
+
+          <div>
+            <h3>🎬 Video Ads</h3>
+            <p>Create campaigns around your video content.</p>
+          </div>
+
+          <div>
+            <h3>📊 Campaign Analytics</h3>
+            <p>Track clicks, views and engagement after backend analytics are connected.</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- LIVE STREAM -->
+    <section id="live" class="page">
+
+      <h1>🔴 Multi-Platform Live Streaming</h1>
+
+      <p>
+        Select the platforms you want to use for your livestream.
+      </p>
+
+      <br>
+
+      <div class="live-box">
+
+        <h2>
+          <span class="live-dot"></span>
+          Live Studio
+        </h2>
+
+        <p id="liveStatus">
+          Stream is currently offline.
+        </p>
+
+        <br>
+
+        <button class="btn red" onclick="startLive()">
+          Start Live
+        </button>
+
+        <button class="btn dark" onclick="stopLive()">
+          Stop Live
+        </button>
+
+      </div>
+
+      <br>
+
+      <h2>Streaming Destinations</h2>
+
+      <div class="grid">
+
+        <div class="platform">
+          <div class="platform-name">
+            <div class="platform-icon">🟣</div>
+            Twitch
+          </div>
+
+          <input type="checkbox" class="livePlatform"
+            value="Twitch">
+        </div>
+
+        <div class="platform">
+          <div class="platform-name">
+            <div class="platform-icon">▶️</div>
+            YouTube
+          </div>
+
+          <input type="checkbox" class="livePlatform"
+            value="YouTube">
+        </div>
+
+        <div class="platform">
+          <div class="platform-name">
+            <div class="platform-icon">🎵</div>
+            TikTok LIVE
+          </div>
+
+          <input 
+            <input id="businessName" placeholder="Business name">
+
+<button onclick="createBusinessPage()">
+Create Business Page
+</button>
+
+<div id="businessResult"></div>
+
+<input id="videoInput" type="file" accept="video/*">
+
+<video id="videoPreview" controls style="display:none;"></video>
+
+<button onclick="promoteVideo()">
+Promote Video
+</button>
+
+<button onclick="startLivestream()">
+Start Livestream
+</button>
